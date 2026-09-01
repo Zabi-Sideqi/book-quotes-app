@@ -68,7 +68,57 @@
       {{ book.publishedDate | date }}
     </p>
 
+    <button type="button" (click)="startEdit(book)">
+      Redigera
+    </button>
+
   </div>
+  }
+  @if (editingBookId !== null) {
+
+  <hr>
+
+  <h3>Redigera bok</h3>
+
+  <form (ngSubmit)="updateBook()">
+
+    <div>
+      <label for="editTitle">Titel</label>
+      <input id="editTitle"
+             type="text"
+             name="editTitle"
+             [(ngModel)]="editBook.title"
+             required>
+    </div>
+
+    <div>
+      <label for="editAuthor">Författare</label>
+      <input id="editAuthor"
+             type="text"
+             name="editAuthor"
+             [(ngModel)]="editBook.author"
+             required>
+    </div>
+
+    <div>
+      <label for="editPublishedDate">Publiceringsdatum</label>
+      <input id="editPublishedDate"
+             type="date"
+             name="editPublishedDate"
+             [(ngModel)]="editBook.publishedDate"
+             required>
+    </div>
+
+    <button type="submit">
+      Spara ändringar
+    </button>
+
+    <button type="button"
+            (click)="cancelEdit()">
+      Avbryt
+    </button>
+
+  </form>
   }
 
 </div>

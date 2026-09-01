@@ -32,4 +32,11 @@ export class BookService {
   createBook(book: CreateBook): Observable<Book> {
     return this.http.post<Book>(this.apiUrl, book);
   }
+
+  updateBook(id: number, book: CreateBook): Observable<void> {
+    return this.http.put<void>(
+      `${this.apiUrl}/${id}`,
+      book
+    );
+  }
 }
