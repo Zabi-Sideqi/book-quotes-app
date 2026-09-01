@@ -10,5 +10,7 @@ namespace BookQuotes.Api.Data
 
         }
         public DbSet<Book> Books { get; set; } 
+        public DbSet<Quote> Quotes { get; set; } 
+
     }
 }
