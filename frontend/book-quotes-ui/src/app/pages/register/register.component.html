@@ -1,0 +1,39 @@
+<div class="register-container">
+
+  <h2>Skapa konto</h2>
+
+  <form (ngSubmit)="register()">
+
+    <div>
+      <label for="username">Användarnamn</label>
+      <input id="username"
+             type="text"
+             name="username"
+             [(ngModel)]="username"
+             required>
+    </div>
+
+    <div>
+      <label for="password">Lösenord</label>
+      <input id="password"
+             type="password"
+             name="password"
+             [(ngModel)]="password"
+             required>
+    </div>
+
+    <button type="submit">
+      Registrera
+    </button>
+
+  </form>
+
+  @if (successMessage) {
+  <p>{{ successMessage }}</p>
+  }
+
+  @if (errorMessage) {
+  <p>{{ errorMessage }}</p>
+  }
+
+</div>

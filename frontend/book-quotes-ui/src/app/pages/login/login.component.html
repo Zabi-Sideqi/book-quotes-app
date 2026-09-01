@@ -1,0 +1,39 @@
+<div class="login-container">
+
+  <h2>Logga in</h2>
+
+  <form (ngSubmit)="login()">
+
+    <div>
+      <label for="username">Användarnamn</label>
+      <input id="username"
+             type="text"
+             name="username"
+             [(ngModel)]="username"
+             required>
+    </div>
+
+    <div>
+      <label for="password">Lösenord</label>
+      <input id="password"
+             type="password"
+             name="password"
+             [(ngModel)]="password"
+             required>
+    </div>
+
+    <button type="submit">
+      Logga in
+    </button>
+    <p>
+      Har du inget konto?
+      <a routerLink="/register">Skapa konto</a>
+    </p>
+
+    @if (errorMessage) {
+    <p>{{ errorMessage }}</p>
+    }
+
+  </form>
+
+</div>

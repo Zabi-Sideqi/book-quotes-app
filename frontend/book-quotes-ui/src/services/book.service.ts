@@ -1,0 +1,35 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+export interface Book {
+  id: number;
+  title: string;
+  author: string;
+  publishedDate: string;
+}
+
+export interface CreateBook {
+  title: string;
+  author: string;
+  publishedDate: string;
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class BookService {
+
+  private apiUrl = 'http://localhost:5000/api/Books';
+
+  constructor(private http: HttpClient) {
+  }
+
+  getBooks(): Observable<Book[]> {
+    return this.http.get<Book[]>(this.apiUrl);
+  }
+
+  createBook(book: CreateBook): Observable<Book> {
+    return this.http.post<Book>(this.apiUrl, book);
+  }
+}

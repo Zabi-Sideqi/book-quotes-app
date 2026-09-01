@@ -1,0 +1,74 @@
+<div class="books-container">
+
+  <h2>Böcker</h2>
+
+  <h3>Lägg till bok</h3>
+
+  <form (ngSubmit)="createBook()">
+
+    <div>
+      <label for="title">Titel</label>
+      <input id="title"
+             type="text"
+             name="title"
+             [(ngModel)]="newBook.title"
+             required>
+    </div>
+
+    <div>
+      <label for="author">Författare</label>
+      <input id="author"
+             type="text"
+             name="author"
+             [(ngModel)]="newBook.author"
+             required>
+    </div>
+
+    <div>
+      <label for="publishedDate">Publiceringsdatum</label>
+      <input id="publishedDate"
+             type="date"
+             name="publishedDate"
+             [(ngModel)]="newBook.publishedDate"
+             required>
+    </div>
+
+    <button type="submit">
+      Lägg till bok
+    </button>
+
+  </form>
+
+  @if (message) {
+  <p>{{ message }}</p>
+  }
+
+  @if (errorMessage) {
+  <p>{{ errorMessage }}</p>
+  }
+
+  <hr>
+
+  @if (books.length === 0) {
+  <p>Inga böcker hittades.</p>
+  }
+
+  @for (book of books; track book.id) {
+  <div class="book-card">
+
+    <h3>{{ book.title }}</h3>
+
+    <p>
+      <strong>Författare:</strong>
+      {{ book.author }}
+    </p>
+
+    <p>
+      <strong>Publicerad:</strong>
+      {{ book.publishedDate | date }}
+    </p>
+
+  </div>
+  }
+
+</div>
