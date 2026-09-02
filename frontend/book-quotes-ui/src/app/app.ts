@@ -14,6 +14,7 @@ export class App {
   protected readonly title = signal('book-quotes-ui');
 
   isDarkMode = false;
+  menuOpen = false;
 
   constructor(
     private authService: AuthService,
@@ -25,6 +26,10 @@ export class App {
   logout(): void {
     this.authService.logout();
     this.router.navigate(['/login']);
+  }
+
+  toggleMenu(): void {
+    this.menuOpen = !this.menuOpen;
   }
 
   toggleTheme(): void {

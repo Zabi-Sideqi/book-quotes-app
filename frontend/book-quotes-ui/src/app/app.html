@@ -1,57 +1,78 @@
-<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
-  <div class="container">
+<nav class="navbar bg-dark navbar-dark">
+  <div class="container navbar-container">
 
+    <!-- Logo -->
     <a class="navbar-brand" routerLink="/books">
       <i class="fa-solid fa-book"></i>
       Book Quotes
     </a>
 
-    <button class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav">
+    <!-- Navigation -->
+    <div class="navbar-collapse"
+         [class.show]="menuOpen"
+         id="navbarNav">
 
-      <span class="navbar-toggler-icon"></span>
-
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarNav">
-
-      <div class="navbar-nav ms-auto">
+      <div class="navbar-nav">
 
         <a class="nav-link"
-           routerLink="/books">
+           routerLink="/books"
+           (click)="menuOpen = false">
+
           <i class="fa-solid fa-book-open"></i>
           Böcker
+
         </a>
 
         <a class="nav-link"
-           routerLink="/quotes">
+           routerLink="/quotes"
+           (click)="menuOpen = false">
+
           <i class="fa-solid fa-quote-left"></i>
           Mina citat
+
         </a>
-        <button type="button"
-                class="btn btn-outline-light ms-2"
-                (click)="toggleTheme()">
 
-          @if (isDarkMode) {
-          <i class="fa-solid fa-sun"></i>
-          Ljust läge
-          } @else {
-          <i class="fa-solid fa-moon"></i>
-          Mörkt läge
-          }
-
-        </button>
+        <div class="mobile-menu-divider"></div>
 
         <a class="nav-link"
            href="#"
            (click)="logout(); $event.preventDefault()">
+
           <i class="fa-solid fa-right-from-bracket"></i>
           Logga ut
+
         </a>
 
       </div>
+
+    </div>
+
+    <!-- Theme + Hamburger -->
+    <div class="navbar-actions">
+
+      <button type="button"
+              class="btn btn-outline-light theme-button"
+              (click)="toggleTheme()"
+              [attr.aria-label]="isDarkMode ? 'Ljust läge' : 'Mörkt läge'"
+              [title]="isDarkMode ? 'Ljust läge' : 'Mörkt läge'">
+
+        @if (isDarkMode) {
+        <i class="fa-solid fa-sun"></i>
+        } @else {
+        <i class="fa-solid fa-moon"></i>
+        }
+
+      </button>
+
+      <button class="navbar-toggler"
+              type="button"
+              (click)="toggleMenu()"
+              [attr.aria-expanded]="menuOpen"
+              aria-controls="navbarNav">
+
+        <span class="navbar-toggler-icon"></span>
+
+      </button>
 
     </div>
 
