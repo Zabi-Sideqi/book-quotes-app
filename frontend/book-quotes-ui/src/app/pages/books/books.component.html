@@ -1,43 +1,62 @@
 <div class="books-container">
 
-  <h2>Böcker</h2>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>
+      <i class="fa-solid fa-book"></i>
+      Böcker
+    </h2>
+  </div>
 
-  <h3>Lägg till bok</h3>
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
 
-  <form (ngSubmit)="createBook()">
+      <h3 class="card-title">
+        <i class="fa-solid fa-plus"></i>
+        Lägg till bok
+      </h3>
 
-    <div>
-      <label for="title">Titel</label>
-      <input id="title"
-             type="text"
-             name="title"
-             [(ngModel)]="newBook.title"
-             required>
+      <form (ngSubmit)="createBook()">
+
+        <div class="mb-3">
+          <label for="createTitle" class="form-label">Titel</label>
+          <input id="createTitle"
+                 type="text"
+                 name="title"
+                 class="form-control"
+                 [(ngModel)]="newBook.title"
+                 required>
+        </div>
+
+        <div class="mb-3">
+          <label for="createAuthor" class="form-label">Författare</label>
+          <input id="createAuthor"
+                 type="text"
+                 name="author"
+                 class="form-control"
+                 [(ngModel)]="newBook.author"
+                 required>
+        </div>
+
+        <div class="mb-3">
+          <label for="createPublishedDate" class="form-label">
+            Publiceringsdatum
+          </label>
+          <input id="createPublishedDate"
+                 type="date"
+                 name="publishedDate"
+                 class="form-control"
+                 [(ngModel)]="newBook.publishedDate"
+                 required>
+        </div>
+
+        <button type="submit" class="btn btn-success">
+          <i class="fa-solid fa-plus"></i>
+          Lägg till bok
+        </button>
+
+      </form>
     </div>
-
-    <div>
-      <label for="author">Författare</label>
-      <input id="author"
-             type="text"
-             name="author"
-             [(ngModel)]="newBook.author"
-             required>
-    </div>
-
-    <div>
-      <label for="publishedDate">Publiceringsdatum</label>
-      <input id="publishedDate"
-             type="date"
-             name="publishedDate"
-             [(ngModel)]="newBook.publishedDate"
-             required>
-    </div>
-
-    <button type="submit">
-      Lägg till bok
-    </button>
-
-  </form>
+  </div>
 
   @if (message) {
   <p>{{ message }}</p>
@@ -54,74 +73,113 @@
   }
 
   @for (book of books; track book.id) {
-  <div class="book-card">
 
-    <h3>{{ book.title }}</h3>
+  <div class="card shadow-sm mb-3">
+    <div class="card-body">
 
-    <p>
-      <strong>Författare:</strong>
-      {{ book.author }}
-    </p>
+      <h3 class="card-title">
+        <i class="fa-solid fa-book"></i>
+        {{ book.title }}
+      </h3>
 
-    <p>
-      <strong>Publicerad:</strong>
-      {{ book.publishedDate | date }}
-    </p>
+      <p class="card-text">
+        <strong>Författare:</strong>
+        {{ book.author }}
+      </p>
 
-    <button type="button" (click)="startEdit(book)">
-      Redigera
-    </button>
-    <button type="button" (click)="deleteBook(book.id)">
-      Ta bort
-    </button>
+      <p class="card-text">
+        <strong>Publicerad:</strong>
+        {{ book.publishedDate | date }}
+      </p>
 
-</div>
+      <button type="button"
+              class="btn btn-primary me-2"
+              (click)="startEdit(book)">
+        <i class="fa-solid fa-pen"></i>
+        Redigera
+      </button>
+
+      <button type="button"
+              class="btn btn-danger"
+              (click)="deleteBook(book.id)">
+        <i class="fa-solid fa-trash"></i>
+        Ta bort
+      </button>
+
+    </div>
+  </div>
+
+
   }
   @if (editingBookId !== null) {
 
   <hr>
 
-  <h3>Redigera bok</h3>
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
 
-  <form (ngSubmit)="updateBook()">
+      <h3 class="card-title">
+        <i class="fa-solid fa-pen"></i>
+        Redigera bok
+      </h3>
 
-    <div>
-      <label for="editTitle">Titel</label>
-      <input id="editTitle"
-             type="text"
-             name="editTitle"
-             [(ngModel)]="editBook.title"
-             required>
+      <form (ngSubmit)="updateBook()">
+
+        <div class="mb-3">
+          <label for="editTitle" class="form-label">
+            Titel
+          </label>
+
+          <input id="editTitle"
+                 type="text"
+                 name="editTitle"
+                 class="form-control"
+                 [(ngModel)]="editBook.title"
+                 required>
+        </div>
+
+        <div class="mb-3">
+          <label for="editAuthor" class="form-label">
+            Författare
+          </label>
+
+          <input id="editAuthor"
+                 type="text"
+                 name="editAuthor"
+                 class="form-control"
+                 [(ngModel)]="editBook.author"
+                 required>
+        </div>
+
+        <div class="mb-3">
+          <label for="editPublishedDate" class="form-label">
+            Publiceringsdatum
+          </label>
+
+          <input id="editPublishedDate"
+                 type="date"
+                 name="editPublishedDate"
+                 class="form-control"
+                 [(ngModel)]="editBook.publishedDate"
+                 required>
+        </div>
+
+        <button type="submit" class="btn btn-success me-2">
+          <i class="fa-solid fa-check"></i>
+          Spara ändringar
+        </button>
+
+        <button type="button"
+                class="btn btn-secondary"
+                (click)="cancelEdit()">
+          <i class="fa-solid fa-xmark"></i>
+          Avbryt
+        </button>
+
+      </form>
+
     </div>
-
-    <div>
-      <label for="editAuthor">Författare</label>
-      <input id="editAuthor"
-             type="text"
-             name="editAuthor"
-             [(ngModel)]="editBook.author"
-             required>
-    </div>
-
-    <div>
-      <label for="editPublishedDate">Publiceringsdatum</label>
-      <input id="editPublishedDate"
-             type="date"
-             name="editPublishedDate"
-             [(ngModel)]="editBook.publishedDate"
-             required>
-    </div>
-
-    <button type="submit">
-      Spara ändringar
-    </button>
-
-    <button type="button"
-            (click)="cancelEdit()">
-      Avbryt
-    </button>
-
-  </form>
+  </div>
   }
 
 </div>

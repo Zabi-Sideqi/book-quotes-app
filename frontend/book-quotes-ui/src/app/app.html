@@ -1,13 +1,63 @@
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+  <div class="container">
 
-<nav>
-  <a routerLink="/books">Böcker</a>
-  |
-  <a routerLink="/quotes">Mina citat</a>
-  |
-  <a href="#" (click)="logout(); $event.preventDefault()">
-    Logga ut
-  </a>
+    <a class="navbar-brand" routerLink="/books">
+      <i class="fa-solid fa-book"></i>
+      Book Quotes
+    </a>
+
+    <button class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav">
+
+      <span class="navbar-toggler-icon"></span>
+
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+
+      <div class="navbar-nav ms-auto">
+
+        <a class="nav-link"
+           routerLink="/books">
+          <i class="fa-solid fa-book-open"></i>
+          Böcker
+        </a>
+
+        <a class="nav-link"
+           routerLink="/quotes">
+          <i class="fa-solid fa-quote-left"></i>
+          Mina citat
+        </a>
+        <button type="button"
+                class="btn btn-outline-light ms-2"
+                (click)="toggleTheme()">
+
+          @if (isDarkMode) {
+          <i class="fa-solid fa-sun"></i>
+          Ljust läge
+          } @else {
+          <i class="fa-solid fa-moon"></i>
+          Mörkt läge
+          }
+
+        </button>
+
+        <a class="nav-link"
+           href="#"
+           (click)="logout(); $event.preventDefault()">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          Logga ut
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
 </nav>
 
-<router-outlet />
-<router-outlet />
+<main class="container py-4">
+  <router-outlet />
+</main>

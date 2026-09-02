@@ -3,6 +3,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { BooksComponent } from './pages/books/books.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { QuotesComponent } from './pages/quotes/quotes.component';
+import { authGuard } from './guards/auth.guard';
 export const routes: Routes = [
   {
     path: 'login',
@@ -10,7 +11,8 @@ export const routes: Routes = [
   },
   {
     path: 'books',
-    component: BooksComponent
+    component: BooksComponent,
+    canActivate: [authGuard]
   },
   {
     path: '',
@@ -23,6 +25,7 @@ export const routes: Routes = [
   },
   {
     path: 'quotes',
-    component: QuotesComponent
+    component: QuotesComponent,
+    canActivate: [authGuard]
   }
 ];

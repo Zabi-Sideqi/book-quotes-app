@@ -1,39 +1,73 @@
-<div class="register-container">
+<div class="row justify-content-center">
 
-  <h2>Skapa konto</h2>
+  <div class="col-12 col-sm-10 col-md-6 col-lg-4">
 
-  <form (ngSubmit)="register()">
+    <div class="card shadow-sm mt-5">
+      <div class="card-body p-4">
 
-    <div>
-      <label for="username">Användarnamn</label>
-      <input id="username"
-             type="text"
-             name="username"
-             [(ngModel)]="username"
-             required>
+        <h2 class="text-center mb-4">
+          <i class="fa-solid fa-user-plus"></i>
+          Registrera konto
+        </h2>
+
+        <form (ngSubmit)="register()">
+
+          <div class="mb-3">
+            <label for="username" class="form-label">
+              Användarnamn
+            </label>
+
+            <input id="username"
+                   type="text"
+                   name="username"
+                   class="form-control"
+                   [(ngModel)]="username"
+                   required>
+          </div>
+
+          <div class="mb-3">
+            <label for="password" class="form-label">
+              Lösenord
+            </label>
+
+            <input id="password"
+                   type="password"
+                   name="password"
+                   class="form-control"
+                   [(ngModel)]="password"
+                   required>
+          </div>
+
+          @if (errorMessage) {
+          <div class="alert alert-danger">
+            {{ errorMessage }}
+          </div>
+          }
+
+          @if (successMessage) {
+          <div class="alert alert-success">
+            {{ successMessage }}
+          </div>
+          }
+
+          <button type="submit"
+                  class="btn btn-success w-100">
+            <i class="fa-solid fa-user-plus"></i>
+            Registrera
+          </button>
+
+        </form>
+
+        <div class="text-center mt-3">
+          <span>Har du redan ett konto?</span>
+          <a routerLink="/login" class="ms-1">
+            Logga in
+          </a>
+        </div>
+
+      </div>
     </div>
 
-    <div>
-      <label for="password">Lösenord</label>
-      <input id="password"
-             type="password"
-             name="password"
-             [(ngModel)]="password"
-             required>
-    </div>
-
-    <button type="submit">
-      Registrera
-    </button>
-
-  </form>
-
-  @if (successMessage) {
-  <p>{{ successMessage }}</p>
-  }
-
-  @if (errorMessage) {
-  <p>{{ errorMessage }}</p>
-  }
+  </div>
 
 </div>
