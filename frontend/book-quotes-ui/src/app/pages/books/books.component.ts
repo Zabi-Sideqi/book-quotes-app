@@ -110,4 +110,20 @@ export class BooksComponent implements OnInit {
   cancelEdit(): void {
     this.editingBookId = null;
   }
+
+  deleteBook(id: number): void {
+    this.message = '';
+    this.errorMessage = '';
+
+    this.bookService.deleteBook(id).subscribe({
+      next: () => {
+        this.message = 'Boken togs bort!';
+        this.loadBooks();
+      },
+      error: (error) => {
+        console.error('Could not delete book', error);
+        this.errorMessage = 'Kunde inte ta bort boken.';
+      }
+    });
+  }
 }

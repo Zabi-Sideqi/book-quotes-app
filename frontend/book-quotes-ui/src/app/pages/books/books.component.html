@@ -71,8 +71,11 @@
     <button type="button" (click)="startEdit(book)">
       Redigera
     </button>
+    <button type="button" (click)="deleteBook(book.id)">
+      Ta bort
+    </button>
 
-  </div>
+</div>
   }
   @if (editingBookId !== null) {
 
