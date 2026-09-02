@@ -4,6 +4,7 @@ import { BooksComponent } from './pages/books/books.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { QuotesComponent } from './pages/quotes/quotes.component';
 import { authGuard } from './guards/auth.guard';
+import { BookFormComponent } from './pages/books/book-form.component';
 export const routes: Routes = [
   {
     path: 'login',
@@ -12,6 +13,16 @@ export const routes: Routes = [
   {
     path: 'books',
     component: BooksComponent,
+    canActivate: [authGuard]
+  },
+  {
+    path: 'books/new',
+    component: BookFormComponent,
+    canActivate: [authGuard]
+  },
+  {
+    path: 'books/edit/:id',
+    component: BookFormComponent,
     canActivate: [authGuard]
   },
   {
@@ -27,5 +38,6 @@ export const routes: Routes = [
     path: 'quotes',
     component: QuotesComponent,
     canActivate: [authGuard]
-  }
+  },
+
 ];

@@ -2,9 +2,12 @@
   <div class="container navbar-container">
 
     <!-- Logo -->
-    <a class="navbar-brand" routerLink="/books">
+    <a class="navbar-brand"
+       [routerLink]="isLoggedIn ? '/books' : '/login'">
+
       <i class="fa-solid fa-book"></i>
       Book Quotes
+
     </a>
 
     <!-- Navigation -->
@@ -13,6 +16,10 @@
          id="navbarNav">
 
       <div class="navbar-nav">
+
+        @if (isLoggedIn) {
+
+        <!-- Inloggad navigation -->
 
         <a class="nav-link"
            routerLink="/books"
@@ -42,6 +49,30 @@
           Logga ut
 
         </a>
+
+        } @else {
+
+        <!-- Utloggad navigation -->
+
+        <a class="nav-link fw-semibold"
+           routerLink="/login"
+           (click)="menuOpen = false">
+
+          <i class="fa-solid fa-right-to-bracket"></i>
+          Logga in
+
+        </a>
+
+        <a class="nav-link fw-semibold"
+           routerLink="/register"
+           (click)="menuOpen = false">
+
+          <i class="fa-solid fa-user-plus"></i>
+          Registrera
+
+        </a>
+
+        }
 
       </div>
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 
@@ -22,18 +22,26 @@ export class LoginComponent {
   ) {
   }
 
-  login(): void {
+  login(form: NgForm): void {
     this.errorMessage = '';
+
+    if (form.invalid) {
+      this.errorMessage = 'Vänligen fyll i användarnamn och lösenord.';
+      return;
+    }
 
     this.authService.login(this.username, this.password).subscribe({
       next: (response) => {
         localStorage.setItem('token', response.token);
+
+        window.dispatchEvent(new Event('authChanged'));
+
         console.log('Login successful');
 
         this.router.navigate(['/books']);
       },
       error: () => {
-        this.errorMessage = 'Invalid username or password';
+        this.errorMessage = 'Felaktigt användarnamn eller lösenord.';
       }
     });
   }

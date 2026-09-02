@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import {
   Book,
-  BookService,
-  CreateBook
+  BookService
 } from '../../../services/book.service';
 
 @Component({
   selector: 'app-books',
   standalone: true,
-  imports: [DatePipe, FormsModule],
+  imports: [DatePipe],
   templateUrl: './books.component.html',
   styleUrl: './books.component.css'
 })
@@ -18,24 +17,13 @@ export class BooksComponent implements OnInit {
 
   books: Book[] = [];
 
-  newBook: CreateBook = {
-    title: '',
-    author: '',
-    publishedDate: ''
-  };
-
-  editingBookId: number | null = null;
-
-  editBook: CreateBook = {
-    title: '',
-    author: '',
-    publishedDate: ''
-  };
-
   message = '';
   errorMessage = '';
 
-  constructor(private bookService: BookService) {
+  constructor(
+    private bookService: BookService,
+    private router: Router
+  ) {
   }
 
   ngOnInit(): void {
@@ -49,66 +37,17 @@ export class BooksComponent implements OnInit {
       },
       error: (error) => {
         console.error('Could not load books', error);
+        this.errorMessage = 'Kunde inte hämta böcker.';
       }
     });
   }
 
-  createBook(): void {
-    this.message = '';
-    this.errorMessage = '';
-
-    this.bookService.createBook(this.newBook).subscribe({
-      next: (book) => {
-        this.books.push(book);
-
-        this.newBook = {
-          title: '',
-          author: '',
-          publishedDate: ''
-        };
-
-        this.message = 'Boken skapades!';
-      },
-      error: (error) => {
-        console.error('Could not create book', error);
-        this.errorMessage = 'Kunde inte skapa boken.';
-      }
-    });
+  addBook(): void {
+    this.router.navigate(['/books/new']);
   }
 
-  startEdit(book: Book): void {
-    this.editingBookId = book.id;
-
-    this.editBook = {
-      title: book.title,
-      author: book.author,
-      publishedDate: book.publishedDate.substring(0, 10)
-    };
-  }
-
-  updateBook(): void {
-    if (this.editingBookId === null) {
-      return;
-    }
-
-    this.bookService.updateBook(
-      this.editingBookId,
-      this.editBook
-    ).subscribe({
-      next: () => {
-        this.message = 'Boken uppdaterades!';
-        this.editingBookId = null;
-        this.loadBooks();
-      },
-      error: (error) => {
-        console.error('Could not update book', error);
-        this.errorMessage = 'Kunde inte uppdatera boken.';
-      }
-    });
-  }
-
-  cancelEdit(): void {
-    this.editingBookId = null;
+  editBook(id: number): void {
+    this.router.navigate(['/books/edit', id]);
   }
 
   deleteBook(id: number): void {

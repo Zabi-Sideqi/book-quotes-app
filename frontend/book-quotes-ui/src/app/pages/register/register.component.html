@@ -10,7 +10,8 @@
           Registrera konto
         </h2>
 
-        <form (ngSubmit)="register()">
+        <form #registerForm="ngForm"
+              (ngSubmit)="register(registerForm)">
 
           <div class="mb-3">
             <label for="username" class="form-label">
@@ -22,7 +23,13 @@
                    name="username"
                    class="form-control"
                    [(ngModel)]="username"
+                   #usernameField="ngModel"
                    required>
+            @if (usernameField.invalid && (usernameField.touched || registerForm.submitted)) {
+            <div class="text-danger mt-1">
+              <small>Användarnamn måste anges.</small>
+            </div>
+            }
           </div>
 
           <div class="mb-3">
@@ -35,7 +42,13 @@
                    name="password"
                    class="form-control"
                    [(ngModel)]="password"
+                   #passwordField="ngModel"
                    required>
+            @if (passwordField.invalid && (passwordField.touched || registerForm.submitted)) {
+            <div class="text-danger mt-1">
+              <small>Lösenord måste anges.</small>
+            </div>
+            }
           </div>
 
           @if (errorMessage) {
@@ -71,3 +84,5 @@
   </div>
 
 </div>
+
+

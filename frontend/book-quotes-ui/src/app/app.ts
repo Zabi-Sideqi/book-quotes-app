@@ -1,6 +1,4 @@
-
-import { Component, signal, Inject } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { Component, signal } from '@angular/core';
 import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
@@ -15,16 +13,23 @@ export class App {
 
   isDarkMode = false;
   menuOpen = false;
+  isLoggedIn = false;
 
   constructor(
     private authService: AuthService,
-    private router: Router,
-    @Inject(DOCUMENT) private document: Document
+    private router: Router
   ) {
+    this.isLoggedIn = !!localStorage.getItem('token');
+
+    window.addEventListener('authChanged', () => {
+      this.isLoggedIn = !!localStorage.getItem('token');
+    });
   }
 
   logout(): void {
     this.authService.logout();
+    this.isLoggedIn = false;
+    this.menuOpen = false;
     this.router.navigate(['/login']);
   }
 
@@ -35,7 +40,7 @@ export class App {
   toggleTheme(): void {
     this.isDarkMode = !this.isDarkMode;
 
-    this.document.documentElement.setAttribute(
+    document.documentElement.setAttribute(
       'data-bs-theme',
       this.isDarkMode ? 'dark' : 'light'
     );

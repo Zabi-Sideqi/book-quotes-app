@@ -10,7 +10,8 @@
           Logga in
         </h2>
 
-        <form (ngSubmit)="login()">
+        <form #loginForm="ngForm"
+              (ngSubmit)="login(loginForm)">
 
           <div class="mb-3">
             <label for="username" class="form-label">
@@ -22,7 +23,13 @@
                    name="username"
                    class="form-control"
                    [(ngModel)]="username"
+                   #usernameField="ngModel"
                    required>
+            @if (usernameField.invalid && (usernameField.touched || loginForm.submitted)) {
+            <div class="text-danger mt-1">
+              <small>Användarnamn måste anges.</small>
+            </div>
+            }
           </div>
 
           <div class="mb-3">
@@ -35,7 +42,13 @@
                    name="password"
                    class="form-control"
                    [(ngModel)]="password"
+                   #passwordField="ngModel"
                    required>
+            @if (passwordField.invalid && (passwordField.touched || loginForm.submitted)) {
+            <div class="text-danger mt-1">
+              <small>Lösenord måste anges.</small>
+            </div>
+            }
           </div>
 
           @if (errorMessage) {

@@ -15,7 +15,8 @@
         Lägg till citat
       </h3>
 
-      <form (ngSubmit)="createQuote()">
+      <form #createQuoteForm="ngForm"
+            (ngSubmit)="createQuote(createQuoteForm)">
 
         <div class="mb-3">
           <label for="quoteText" class="form-label">
@@ -27,8 +28,21 @@
                     class="form-control"
                     rows="4"
                     [(ngModel)]="newQuote.text"
-                    required>
-          </textarea>
+                    #quoteText="ngModel"
+                    required
+                    maxlength="1000">
+</textarea>
+          @if (quoteText.invalid && (quoteText.touched || createQuoteForm.submitted)) {
+          <div class="text-danger mt-1">
+            @if (quoteText.errors?.['required']) {
+            <small>Citat måste anges.</small>
+            }
+
+            @if (quoteText.errors?.['maxlength']) {
+            <small>Citatet får vara högst 1000 tecken.</small>
+            }
+          </div>
+          }
         </div>
 
         <button type="submit"
@@ -99,38 +113,53 @@
         <i class="fa-solid fa-pen"></i>
         Redigera citat
       </h3>
+      <form #editQuoteForm="ngForm"
+            (ngSubmit)="updateQuote(editQuoteForm)">
+        
 
-      <form (ngSubmit)="updateQuote()">
+          <div class="mb-3">
+            <label for="editQuoteText"
+                   class="form-label">
+              Citat
+            </label>
 
-        <div class="mb-3">
-          <label for="editQuoteText"
-                 class="form-label">
-            Citat
-          </label>
+            <textarea id="editQuoteText"
+                      name="editQuoteText"
+                      class="form-control"
+                      rows="4"
+                      [(ngModel)]="editQuote.text"
+                      #editQuoteText="ngModel"
+                      required
+                      maxlength="1000">
+          </textarea>
+            
+            @if (editQuoteText.invalid && (editQuoteText.touched || editQuoteForm.submitted)) {
+            <div class="text-danger mt-1">
+              @if (editQuoteText.errors?.['required']) {
+              <small>Citat måste anges.</small>
+              }
 
-          <textarea id="editQuoteText"
-                    name="editQuoteText"
-                    class="form-control"
-                    rows="4"
-                    [(ngModel)]="editQuote.text"
-                    required>
-            </textarea>
-        </div>
+              @if (editQuoteText.errors?.['maxlength']) {
+              <small>Citatet får vara högst 1000 tecken.</small>
+              }
+            </div>
+            }
+          </div>
 
-        <button type="submit"
-                class="btn btn-success me-2">
-          <i class="fa-solid fa-check"></i>
-          Spara ändringar
-        </button>
+          <button type="submit"
+                  class="btn btn-success me-2">
+            <i class="fa-solid fa-check"></i>
+            Spara ändringar
+          </button>
 
-        <button type="button"
-                class="btn btn-secondary"
-                (click)="cancelEdit()">
-          <i class="fa-solid fa-xmark"></i>
-          Avbryt
-        </button>
+          <button type="button"
+                  class="btn btn-secondary"
+                  (click)="cancelEdit()">
+            <i class="fa-solid fa-xmark"></i>
+            Avbryt
+          </button>
 
-      </form>
+        </form>
 
     </div>
   </div>

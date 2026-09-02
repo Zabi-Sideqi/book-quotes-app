@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import {
   Quote,
   QuoteService,
@@ -49,9 +49,14 @@ export class QuotesComponent implements OnInit {
     });
   }
 
-  createQuote(): void {
+  createQuote(form: NgForm): void {
     this.message = '';
     this.errorMessage = '';
+
+    if (form.invalid) {
+      this.errorMessage = 'Vänligen skriv ett citat.';
+      return;
+    }
 
     this.quoteService.createQuote(this.newQuote).subscribe({
       next: (quote) => {
@@ -79,7 +84,15 @@ export class QuotesComponent implements OnInit {
     };
   }
 
-  updateQuote(): void {
+  updateQuote(form: NgForm): void {
+    this.message = '';
+    this.errorMessage = '';
+
+    if (form.invalid) {
+      this.errorMessage = 'Vänligen skriv ett citat.';
+      return;
+    }
+
     if (this.editingQuoteId === null) {
       return;
     }
