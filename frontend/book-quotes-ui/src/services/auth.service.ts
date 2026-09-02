@@ -32,4 +32,7 @@ export class AuthService {
       loginData
     );
   }
+  logout(): void {
+    localStorage.removeItem('token');
+  }
 }

@@ -1,2 +1,13 @@
 
+<nav>
+  <a routerLink="/books">Böcker</a>
+  |
+  <a routerLink="/quotes">Mina citat</a>
+  |
+  <a href="#" (click)="logout(); $event.preventDefault()">
+    Logga ut
+  </a>
+</nav>
+
+<router-outlet />
 <router-outlet />

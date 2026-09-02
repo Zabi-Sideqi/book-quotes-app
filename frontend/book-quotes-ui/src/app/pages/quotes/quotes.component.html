@@ -1,0 +1,90 @@
+<div class="quotes-container">
+
+  <h2>Mina citat</h2>
+
+  <h3>Lägg till citat</h3>
+
+  <form (ngSubmit)="createQuote()">
+
+    <div>
+      <label for="quoteText">Citat</label>
+
+      <textarea id="quoteText"
+                name="quoteText"
+                [(ngModel)]="newQuote.text"
+                required>
+      </textarea>
+    </div>
+
+    <button type="submit">
+      Lägg till citat
+    </button>
+
+  </form>
+
+  @if (message) {
+  <p>{{ message }}</p>
+  }
+
+  @if (errorMessage) {
+  <p>{{ errorMessage }}</p>
+  }
+
+  <hr>
+
+  @if (quotes.length === 0) {
+  <p>Du har inga citat ännu.</p>
+  }
+
+  @for (quote of quotes; track quote.id) {
+
+  <div class="quote-card">
+
+    <p>
+      "{{ quote.text }}"
+    </p>
+
+    <button type="button"
+            (click)="startEdit(quote)">
+      Redigera
+    </button>
+
+    <button type="button"
+            (click)="deleteQuote(quote.id)">
+      Ta bort
+    </button>
+
+  </div>
+  }
+
+  @if (editingQuoteId !== null) {
+
+  <hr>
+
+  <h3>Redigera citat</h3>
+
+  <form (ngSubmit)="updateQuote()">
+
+    <div>
+      <label for="editQuoteText">Citat</label>
+
+      <textarea id="editQuoteText"
+                name="editQuoteText"
+                [(ngModel)]="editQuote.text"
+                required>
+        </textarea>
+    </div>
+
+    <button type="submit">
+      Spara ändringar
+    </button>
+
+    <button type="button"
+            (click)="cancelEdit()">
+      Avbryt
+    </button>
+
+  </form>
+  }
+
+</div>
