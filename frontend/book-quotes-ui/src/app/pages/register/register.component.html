@@ -13,6 +13,7 @@
         <form #registerForm="ngForm"
               (ngSubmit)="register(registerForm)">
 
+          <!-- Användarnamn -->
           <div class="mb-3">
             <label for="username" class="form-label">
               Användarnamn
@@ -25,6 +26,7 @@
                    [(ngModel)]="username"
                    #usernameField="ngModel"
                    required>
+
             @if (usernameField.invalid && (usernameField.touched || registerForm.submitted)) {
             <div class="text-danger mt-1">
               <small>Användarnamn måste anges.</small>
@@ -32,6 +34,35 @@
             }
           </div>
 
+          <!-- E-post -->
+          <div class="mb-3">
+            <label for="email" class="form-label">
+              E-post
+            </label>
+
+            <input id="email"
+                   type="email"
+                   name="email"
+                   class="form-control"
+                   [(ngModel)]="email"
+                   #emailField="ngModel"
+                   required
+                   email>
+
+            @if (emailField.invalid && (emailField.touched || registerForm.submitted)) {
+            <div class="text-danger mt-1">
+              @if (emailField.errors?.['required']) {
+              <small>E-post måste anges.</small>
+              }
+
+              @if (emailField.errors?.['email']) {
+              <small>Ange en giltig e-postadress.</small>
+              }
+            </div>
+            }
+          </div>
+
+          <!-- Lösenord -->
           <div class="mb-3">
             <label for="password" class="form-label">
               Lösenord
@@ -43,20 +74,60 @@
                    class="form-control"
                    [(ngModel)]="password"
                    #passwordField="ngModel"
-                   required>
+                   required
+                   minlength="6">
+
             @if (passwordField.invalid && (passwordField.touched || registerForm.submitted)) {
             <div class="text-danger mt-1">
+              @if (passwordField.errors?.['required']) {
               <small>Lösenord måste anges.</small>
+              }
+
+              @if (passwordField.errors?.['minlength']) {
+              <small>Lösenord måste vara minst 6 tecken.</small>
+              }
             </div>
             }
           </div>
 
+          <!-- Bekräfta lösenord -->
+          <div class="mb-3">
+            <label for="confirmPassword" class="form-label">
+              Bekräfta lösenord
+            </label>
+
+            <input id="confirmPassword"
+                   type="password"
+                   name="confirmPassword"
+                   class="form-control"
+                   [(ngModel)]="confirmPassword"
+                   #confirmPasswordField="ngModel"
+                   required>
+
+            @if (confirmPasswordField.invalid &&
+            (confirmPasswordField.touched || registerForm.submitted)) {
+            <div class="text-danger mt-1">
+              <small>Bekräfta ditt lösenord.</small>
+            </div>
+            }
+
+            @if (confirmPasswordField.valid &&
+            confirmPassword !== password &&
+            (confirmPasswordField.touched || registerForm.submitted)) {
+            <div class="text-danger mt-1">
+              <small>Lösenorden matchar inte.</small>
+            </div>
+            }
+          </div>
+
+          <!-- Felmeddelande -->
           @if (errorMessage) {
           <div class="alert alert-danger">
             {{ errorMessage }}
           </div>
           }
 
+          <!-- Lyckat -->
           @if (successMessage) {
           <div class="alert alert-success">
             {{ successMessage }}
@@ -84,5 +155,3 @@
   </div>
 
 </div>
-
-

@@ -15,7 +15,10 @@ import { environment } from '../../../environments/environment';
 export class RegisterComponent {
 
   username = '';
+  email = '';
   password = '';
+  confirmPassword = '';
+
   errorMessage = '';
   successMessage = '';
 
@@ -33,10 +36,16 @@ export class RegisterComponent {
 
     const registerData = {
       username: this.username,
+      email: this.email,
       password: this.password
     };
     if (form.invalid) {
-      this.errorMessage = 'Vänligen fyll i användarnamn och lösenord.';
+      this.errorMessage = 'Vänligen fyll i alla fält korrekt.';
+      return;
+    }
+
+    if (this.password !== this.confirmPassword) {
+      this.errorMessage = 'Lösenorden matchar inte.';
       return;
     }
 

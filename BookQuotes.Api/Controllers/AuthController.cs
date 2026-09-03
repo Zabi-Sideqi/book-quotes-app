@@ -33,9 +33,15 @@ public class AuthController : ControllerBase
             return BadRequest("Username already exists.");
         }
 
+        if (await _context.Users.AnyAsync(u => u.Email == dto.Email))
+        {
+            return BadRequest("Email already exists.");
+        }
+
         var user = new User
         {
-            Username = dto.Username
+            Username = dto.Username,
+            Email = dto.Email
         };
 
         user.PasswordHash =

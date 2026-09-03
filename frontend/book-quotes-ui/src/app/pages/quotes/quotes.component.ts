@@ -65,6 +65,7 @@ export class QuotesComponent implements OnInit {
         this.newQuote = {
           text: ''
         };
+        form.resetForm();
 
         this.message = 'Citatet skapades!';
       },
