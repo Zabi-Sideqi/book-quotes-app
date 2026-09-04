@@ -1,4 +1,5 @@
-﻿namespace BookQuotes.Api.Models
+﻿
+namespace BookQuotes.Api.Models
 {
     public class Book
     {
