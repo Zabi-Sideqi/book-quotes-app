@@ -25,6 +25,7 @@
                    [(ngModel)]="username"
                    #usernameField="ngModel"
                    required>
+
             @if (usernameField.invalid && (usernameField.touched || loginForm.submitted)) {
             <div class="text-danger mt-1">
               <small>Användarnamn måste anges.</small>
@@ -44,6 +45,7 @@
                    [(ngModel)]="password"
                    #passwordField="ngModel"
                    required>
+
             @if (passwordField.invalid && (passwordField.touched || loginForm.submitted)) {
             <div class="text-danger mt-1">
               <small>Lösenord måste anges.</small>
@@ -58,15 +60,24 @@
           }
 
           <button type="submit"
-                  class="btn btn-primary w-100">
-            <i class="fa-solid fa-right-to-bracket"></i>
+                  class="btn btn-primary w-100"
+                  [disabled]="isLoading">
+
+            @if (isLoading) {
+            <span class="spinner-border spinner-border-sm me-2"></span>
+            Loggar in...
+            } @else {
+            <i class="fa-solid fa-right-to-bracket me-1"></i>
             Logga in
+            }
+
           </button>
 
         </form>
 
         <div class="text-center mt-3">
           <span>Har du inget konto?</span>
+
           <a routerLink="/register" class="ms-1">
             Registrera dig
           </a>

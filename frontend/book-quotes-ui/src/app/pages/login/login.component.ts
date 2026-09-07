@@ -15,6 +15,7 @@ export class LoginComponent {
   username: string = '';
   password: string = '';
   errorMessage: string = '';
+  isLoading: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -30,6 +31,8 @@ export class LoginComponent {
       return;
     }
 
+    this.isLoading = true;
+
     this.authService.login(this.username, this.password).subscribe({
       next: (response) => {
         localStorage.setItem('token', response.token);
@@ -41,6 +44,7 @@ export class LoginComponent {
         this.router.navigate(['/books']);
       },
       error: () => {
+        this.isLoading = false;
         this.errorMessage = 'Felaktigt användarnamn eller lösenord.';
       }
     });
