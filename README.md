@@ -1,47 +1,51 @@
 # Book & Quotes App
 
-A full-stack web application for managing books and quotes.
-
-The application was developed as part of a technical test for an internship (LIA). The project demonstrates full-stack development using Angular, C#, ASP.NET Core Web API, Entity Framework Core and SQL Server.
+A full-stack web application for managing books and personal quotes. The project demonstrates a complete workflow across an Angular frontend, a REST API built with ASP.NET Core, and a SQL Server database.
 
 ## Features
 
-- User registration
-- User login
-- JWT authentication
-- View books
-- Search for books
-- Create new books
-- Edit books
-- Delete books
-- View personal quotes
-- Create quotes
-- Edit quotes
-- Delete quotes
-- Responsive design
-- Light and dark mode
-- Loading indicator during login
-- Error messages for failed requests
+- User registration and login
+- JWT-based authentication
+- Browse and search books
+- Create, edit, and delete books
+- Create, view, edit, and delete personal quotes
 - Protected pages for authenticated users
+- Angular route guards and HTTP interceptor
+- Responsive interface
+- Light and dark mode
+- Loading indicators and user-friendly error messages
 
-## Technologies
+## Tech Stack
 
-### Frontend
+| Area | Technologies |
+| --- | --- |
+| Frontend | Angular 20, TypeScript, SCSS, Bootstrap |
+| Backend | C#, .NET 9, ASP.NET Core Web API |
+| Data access | Entity Framework Core |
+| Database | SQL Server |
+| Authentication | JWT |
+| UI icons | Font Awesome |
+| Cloud | Azure App Service, Azure SQL Database |
 
-- Angular 20
-- TypeScript
-- SCSS
-- Bootstrap
-- Font Awesome
+## Architecture
 
-### Backend
+The application is separated into a frontend and backend:
 
-- .NET 9
-- C#
-- ASP.NET Core Web API
-- Entity Framework Core
-- SQL Server
-- JWT Authentication
+```text
+Angular 20 frontend
+       |
+       | HTTP requests with JWT
+       v
+ASP.NET Core Web API
+       |
+       v
+Entity Framework Core
+       |
+       v
+SQL Server
+```
+
+The frontend communicates with the API through HTTP requests. The API handles authentication, validation, book and quote operations, and database access. Protected frontend routes use route guards, while an HTTP interceptor supports authenticated requests.
 
 ## Project Structure
 
@@ -54,186 +58,75 @@ BookQuotes/
 │   ├── Services/
 │   ├── Properties/
 │   ├── Program.cs
-│   ├── appsettings.json
 │   └── BookQuotes.Api.csproj
-│
 ├── frontend/
 │   └── book-quotes-ui/
-│       ├── src/
-│       │   └── app/
-│       │       ├── guards/
-│       │       ├── interceptors/
-│       │       ├── pages/
-│       │       │   ├── books/
-│       │       │   ├── login/
-│       │       │   ├── quotes/
-│       │       │   └── register/
-│       │       └── ...
-│       ├── public/
-│       ├── angular.json
-│       ├── package.json
-│       └── package-lock.json
-│
+│       └── src/app/
+│           ├── guards/
+│           ├── interceptors/
+│           └── pages/
+│               ├── books/
+│               ├── login/
+│               ├── quotes/
+│               └── register/
 ├── BookQuotes.slnx
-├── .gitignore
 └── README.md
 ```
 
-## How to Run the Project
+## Run Locally
 
-### Requirements
-
-Before running the project, make sure you have installed:
+### Prerequisites
 
 - .NET 9 SDK
-- Node.js
+- Node.js and npm
 - Angular CLI
-- SQL Server or access to the configured SQL Server database
+- SQL Server or access to a configured SQL Server database
 
-### 1. Start the Backend
+### 1. Start the API
 
-Open a terminal and navigate to the API project:
+Open a terminal in the API directory:
 
 ```bash
 cd BookQuotes.Api
-```
-
-Restore the .NET packages:
-
-```bash
 dotnet restore
-```
-
-Start the API:
-
-```bash
 dotnet run
 ```
 
-The API will start on the local development URL shown in the terminal.
+Use the local API URL printed in the terminal. Configure the database connection string for your local environment before running the application.
 
-### 2. Start the Frontend
+### 2. Start the Angular frontend
 
-Open another terminal and navigate to the Angular project:
+Open a second terminal:
 
 ```bash
 cd frontend/book-quotes-ui
-```
-
-Install the required packages:
-
-```bash
 npm install
-```
-
-Start the Angular application:
-
-```bash
 ng serve
 ```
 
-Open the application in your browser:
+Then open [http://localhost:4200](http://localhost:4200).
 
-```text
-http://localhost:4200
-```
+## Authentication and Data
 
-## Authentication
+Users can register and log in. After a successful login, the API issues a JWT that the frontend sends with requests to protected endpoints. The API uses Entity Framework Core to work with SQL Server, and database schema changes are managed with EF Core migrations.
 
-The application uses JWT authentication.
+## Azure
 
-Users can register an account and then log in with their username and password.
+The application has been configured for deployment with Azure App Service and Azure SQL Database. Keep secrets and environment-specific connection strings out of source control; configure them through local settings or the deployment environment.
 
-After a successful login, the backend returns a JWT token. The frontend stores the token and uses it when making requests to protected API endpoints.
+## What This Project Demonstrates
 
-Protected routes are handled using Angular route guards.
+- Building a full-stack application with Angular and ASP.NET Core
+- Designing and consuming REST API endpoints
+- Implementing JWT authentication and protected routes
+- Working with relational data through Entity Framework Core
+- Organizing frontend pages, guards, and HTTP interceptors
+- Handling loading states and API errors
+- Preparing an application for cloud deployment
 
-## Database
+## Source Code
 
-The backend uses SQL Server together with Entity Framework Core.
-
-Entity Framework Core is used to communicate with the database and manage the application's data.
-
-Database migrations are used when database changes are made.
-
-## API
-
-The backend is built with ASP.NET Core Web API.
-
-The API is responsible for:
-
-- User authentication
-- Books
-- Quotes
-- Database communication
-- Validation
-- Authorization
-
-The Angular frontend communicates with the backend through HTTP requests.
-
-## Frontend
-
-The frontend is built with Angular 20 and TypeScript.
-
-The application is divided into different pages and services to keep the code organized.
-
-The frontend includes:
-
-- Login page
-- Registration page
-- Books page
-- Quotes page
-- Navigation
-- Authentication guard
-- HTTP interceptor
-- Responsive layout
-
-## Responsive Design
-
-The application is designed to work on different screen sizes, including:
-
-- Desktop
-- Tablet
-- Mobile
-
-Bootstrap is used together with custom SCSS for the layout and styling.
-
-## Error Handling and Loading
-
-The application displays error messages when login or other requests fail.
-
-Loading indicators are also used during operations that may take some time, so the user can see that the application is processing the request.
-
-## Azure Deployment
-
-The application has also been deployed using Microsoft Azure.
-
-The backend is hosted using Azure App Service and the database uses Azure SQL Database.
-
-The Azure resources were configured with cost awareness in mind and the available free resources were used where possible.
-
-## GitHub
-
-The source code is available on GitHub:
-
-https://github.com/Zabi-Sideqi/book-quotes-app
-
-## Purpose of the Project
-
-This project was created as part of a technical test for an internship (LIA).
-
-The purpose of the project is to demonstrate practical knowledge of:
-
-- Angular
-- TypeScript
-- C#
-- ASP.NET Core Web API
-- Entity Framework Core
-- SQL Server
-- JWT authentication
-- REST API
-- Git and GitHub
-- Azure
+[View the repository on GitHub](https://github.com/Zabi-Sideqi/book-quotes-app)
 
 ## Author
 
